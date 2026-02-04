@@ -1,25 +1,24 @@
-.PHONY: install initdb run-server run-client run
+.PHONY: install build initdb run clean
 
-# Install dependencies for both server and client
+# Install dependencies for both parts
 install:
 	cd server && npm install
 	cd client && npm install
 
-# Initialize database with v1 demo schema
+# Build the React app into client/dist (served by Express)
+build:
+	cd client && npm run build
+
+# Initialize the database schema (v1 demo or whatever schema you point at)
+# Assumes server/.env provides DB_* variables (user=dbname=linux username, pass=student ID)
 initdb:
-	@echo "Initializing v1 demo schema in your MariaDB database..."
+	@echo "Initializing schema in your MariaDB database..."
 	cd server && ./scripts/db-init.sh ../docs/schema_v1.sql
 
-# Run Express API
-run-server:
-	cd server && npm run dev
+# Single-run: build client then start server (which serves client/dist)
+run: build
+	cd server && npm start
 
-# Run React (Vite) frontend
-run-client:
-	cd client && npm run dev
-
-# Convenience target: reminder only
-run:
-	@echo "Run in two terminals:"
-	@echo "  make run-server"
-	@echo "  make run-client"
+# Optional cleanup
+clean:
+	rm -rf client/dist
