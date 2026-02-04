@@ -1,12 +1,29 @@
 # MariaDB + Express + React Mini Messageboard (Starter)
 
-This starter is designed for a **shared Linux server** environment.
+This project is a starter template for a mini messageboard application using:
 
-## Your environment assumptions (important)
-- Your Linux username is your email address **before** the `@` (e.g. `jsmith` for `jsmith@kenyon.edu`)
-- Your **MariaDB database name** is the same as your username.
-- You must run your web app on **port 41xx**, where **xx are the last 2 digits of your student ID**.
-  - Example: student ID ends in `37` → use **4137**.
+- MariaDB
+- Express (Node.js)
+- React (Vite)
+
+It is designed to run on a shared Linux server.
+
+---
+
+## Environment assumptions (read this first)
+
+These assumptions are required for the project to work correctly.
+
+- Your Linux username is your email address before the `@`
+  - Example: `jsmith@kenyon.edu` → username is `jsmith`
+
+- Your MariaDB database name is exactly the same as your username
+
+- You must run your Express server on port `41xx`, where:
+  - `xx` = last two digits of your student ID
+  - Example: student ID ends in `37` → use port `4137`
+
+Using the wrong port or database name will cause your app to fail.
 
 ---
 
@@ -14,65 +31,99 @@ This starter is designed for a **shared Linux server** environment.
 
 ```
 .
-├── server/    # Express API (currently "v1" working demo)
-├── client/    # React (Vite) app (basic platform)
-└── docs/      # v2 schema + API contracts you must implement
+├── server/    # Express API (v1 demo is implemented)
+├── client/    # React (Vite) frontend
+├── docs/      # v2 schema + API / frontend contracts
+└── scripts/   # helper scripts (env setup)
 ```
-
-### What currently works (v1)
-- Express server with:
-  - `GET /api/health`
-  - `GET /api/posts` (public)
-  - `POST /api/posts` (public, **no auth**)
-- React app that:
-  - loads and displays posts
-  - lets anyone add a post
-
-### Your assignment (implement v2)
-You are given:
-- an updated DB schema: `docs/schema_v2.sql`
-- an API contract: `docs/API_CONTRACT_v2.md`
-- front-end interface stubs: `docs/FRONTEND_CONTRACT_v2.md`
-
-You must modify the code to match **v2**:
-- add **register + login + logout**
-- enforce: only logged-in users can create posts
-- include author info in post lists
 
 ---
 
-## Quick start
+## What currently works (v1 demo)
+
+The v1 code is fully working and is provided as a reference.
+
+### Backend (Express)
+- GET `/api/health` — server health check
+- GET `/api/posts` — list all posts (public)
+- POST `/api/posts` — create a post (public, no authentication)
+
+### Frontend (React)
+- Displays the list of posts
+- Allows anyone to add a new post
+
+There is no login, no users, and no authorization in v1.
+
+---
+
+## Your assignment: implement v2
+
+You will upgrade the system to v2, which adds authentication and ownership.
+
+### Provided materials
+- Database schema: `docs/schema_v2.sql`
+- Backend API contract: `docs/API_CONTRACT_v2.md`
+- Frontend behavior contract: `docs/FRONTEND_CONTRACT_v2.md`
+
+### Required v2 features
+You must modify the project so that:
+
+- Users can register, log in, and log out
+- Sessions are handled using cookies
+- Only logged-in users can create posts
+- Posts include author information
+- The backend and frontend follow the provided contracts exactly
+
+---
+
+## Quick start (v1 demo)
 
 ### 1) Install dependencies
+From the project root:
+
 ```bash
 make install
 ```
 
-### 2) Create your `.env` files (server + client)
-Run the helper script:
+---
+
+### 2) Create environment files
+
+Run the setup script:
 
 ```bash
 ./scripts/setup-env.sh
 ```
 
-It will ask for your last 2 student-id digits and write:
+You will be prompted for:
+- the last two digits of your student ID
+
+This script creates:
 - `server/.env`
 - `client/.env`
 
-### 3) Initialize the database (v1 schema)
-This creates the **v1 demo tables** (no auth). You will later replace with v2.
+Do not edit these files by hand unless you know what you are doing.
+
+---
+
+### 3) Initialize the database (v1)
+
+This creates the v1 demo tables (no users, no auth):
 
 ```bash
 make initdb-v1
 ```
 
-### 4) Run (two terminals)
-Terminal A:
+---
+
+### 4) Run the app (two terminals)
+
+Terminal A (server):
 ```bash
 make run-server
 ```
 
-Terminal B:
+Terminal B (client):
 ```bash
 make run-client
 ```
@@ -82,11 +133,25 @@ Open the URL printed by Vite (usually `http://localhost:5173`).
 ---
 
 ## Switching to v2 (your work)
-When you are ready:
-1. Replace v1 tables with v2 tables:
+
+When you are ready to begin the assignment:
+
+1. Replace the v1 tables with the v2 schema:
    ```bash
    make initdb-v2
    ```
-2. Implement the v2 backend routes + session behavior
-3. Update the React UI to the v2 frontend contract
 
+2. Implement:
+   - v2 authentication routes
+   - session handling
+   - post authorization logic
+
+3. Update the React frontend to match the v2 frontend contract
+
+---
+
+## Important notes
+
+- v1 code is reference code, not the final solution
+- You are expected to modify both backend and frontend
+- Follow the contracts in `docs/` closely — grading assumes contract compliance
