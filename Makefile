@@ -1,19 +1,25 @@
-.PHONY: install initdb-v1 initdb-v2 run-server run-client
+.PHONY: install initdb run-server run-client run
 
+# Install dependencies for both server and client
 install:
 	cd server && npm install
 	cd client && npm install
 
-initdb-v1:
-	@echo "Initializing v1 schema in your DB..."
+# Initialize database with v1 demo schema
+initdb:
+	@echo "Initializing v1 demo schema in your MariaDB database..."
 	cd server && ./scripts/db-init.sh ../docs/schema_v1.sql
 
-initdb-v2:
-	@echo "Initializing v2 schema in your DB..."
-	cd server && ./scripts/db-init.sh ../docs/schema_v2.sql
-
+# Run Express API
 run-server:
 	cd server && npm run dev
 
+# Run React (Vite) frontend
 run-client:
 	cd client && npm run dev
+
+# Convenience target: reminder only
+run:
+	@echo "Run in two terminals:"
+	@echo "  make run-server"
+	@echo "  make run-client"
