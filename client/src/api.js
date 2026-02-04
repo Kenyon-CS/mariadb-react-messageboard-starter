@@ -1,3 +1,4 @@
+// client/src/api.js
 const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || "";
 
 export async function api(path, { method = "GET", body } = {}) {
