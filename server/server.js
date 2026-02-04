@@ -2,6 +2,11 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import "dotenv/config";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import postsV1 from "./routes/posts_v1.js";
 // v2 routes (assignment): uncomment once implemented
@@ -25,6 +30,14 @@ app.use(session({
 }));
 
 app.get("/api/health", (req, res) => res.json({ ok: true }));
+
+const clientDist = path.join(__dirname, "../client/dist");
+
+app.use(express.static(clientDist));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(clientDist, "index.html"));
+});
 
 // v1 working demo
 app.use("/api/posts", postsV1);
