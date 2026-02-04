@@ -19,9 +19,15 @@ These assumptions are required for the project to work correctly.
 
 - Your MariaDB database name is exactly the same as your username
 
+- Your MariaDB password is your student ID
+
 - You must run your Express server on port `41xx`, where:
   - `xx` = last two digits of your student ID
   - Example: student ID ends in `37` → use port `4137`
+
+Your app will be reachable at:
+
+`http://10.192.145.179:41xx/`
 
 Using the wrong port or database name will cause your app to fail.
 
@@ -31,8 +37,8 @@ Using the wrong port or database name will cause your app to fail.
 
 ```
 .
-├── server/    # Express API (v1 demo is implemented)
-├── client/    # React (Vite) frontend
+├── server/    # Express API + serves built React (single-run)
+├── client/    # React (Vite) frontend (built into client/dist)
 ├── docs/      # v2 schema + API / frontend contracts
 └── scripts/   # helper scripts (env setup)
 ```
@@ -76,7 +82,7 @@ You must modify the project so that:
 
 ---
 
-## Quick start (v1 demo)
+## Quick start (v1 demo) — SINGLE RUN
 
 ### 1) Install dependencies
 From the project root:
@@ -116,19 +122,15 @@ make initdb-v1
 
 ---
 
-### 4) Run the app (two terminals)
+### 4) Build + run (single process)
 
-Terminal A (server):
 ```bash
-make run-server
+make run
 ```
 
-Terminal B (client):
-```bash
-make run-client
-```
+Then open:
 
-Open the URL printed by Vite (usually `http://localhost:5173`).
+`http://10.192.145.179:41xx/`
 
 ---
 
