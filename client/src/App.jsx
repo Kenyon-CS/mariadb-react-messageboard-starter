@@ -1,3 +1,4 @@
+// client/src/App.jsx
 import React, { useEffect, useState } from "react";
 import { api } from "./api";
 import MessageBoardV1 from "./components/MessageBoardV1.jsx";
