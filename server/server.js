@@ -34,4 +34,6 @@ app.use("/api/posts", postsV1);
 // app.use("/api/posts", postsV2);
 
 const port = Number(process.env.PORT || 3000);
-app.listen(port, () => console.log(`API listening on ${port}`));
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server listening on http://10.192.145.179:${port}`);
+});
